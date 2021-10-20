@@ -31,3 +31,6 @@ class Document(Model):
 
 db.connect()
 db.create_tables([Company, shortDate, Document])
+
+add_company = Company(name='Eurocash')
+add_company.save()
