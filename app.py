@@ -43,8 +43,8 @@ class mainWindow(Gtk.Window):
         self.quota = Gtk.Entry()
         self.grid.attach(self.quota, 1, 0, 1, 1)
 
-        self.doc_number = Gtk.Entry()
-        self.grid.attach(self.doc_number, 2, 0, 1, 1)
+        self.invoice_number = Gtk.Entry()
+        self.grid.attach(self.invoice_number, 2, 0, 1, 1)
 
         self.doc_company = Gtk.Entry()
         self.grid.attach(self.doc_company, 3, 0, 1, 1)
@@ -67,10 +67,24 @@ class mainWindow(Gtk.Window):
 
         self.add_document = Gtk.Button.new_with_mnemonic("_Dodaj")
         self.grid.attach(self.add_document, 2, 2, 1, 1)
+        self.add_document.connect("clicked", self.add_record)
 
         self.quit_from_app = Gtk.Button.new_with_mnemonic("_Wyjdź")
         self.grid.attach(self.quit_from_app, 3, 2, 1, 1)
 
+
+    def add_record(self, add_document):
+        new_record = Document.create(
+            date = self.doc_date.get_text(),
+            netto_quota = self.quota.get_text(),
+            doc_number = self.invoice_number.get_text(),
+            company = self.doc_company.get_text(),
+            if_short_date = self.is_short_date.get_active_text(),
+            if_beer = self.is_beer_quota.get_text(),
+            if_wine = self.is_wine_quota.get_text(),
+            if_vodka = self.is_vodka_quota.get_text()
+        )
+        new_record.save()
 
 
 if __name__ == "__main__":
