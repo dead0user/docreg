@@ -71,6 +71,7 @@ class mainWindow(Gtk.Window):
 
         self.quit_from_app = Gtk.Button.new_with_mnemonic("_Wyjdź")
         self.grid.attach(self.quit_from_app, 3, 2, 1, 1)
+        self.quit_from_app.connect("clicked", self.close_app)
 
 
     def add_record(self, add_document):
@@ -80,11 +81,14 @@ class mainWindow(Gtk.Window):
             doc_number = self.invoice_number.get_text(),
             company = self.doc_company.get_text(),
             if_short_date = self.is_short_date.get_active_text(),
-            if_beer = self.is_beer_quota.get_text(),
-            if_wine = self.is_wine_quota.get_text(),
-            if_vodka = self.is_vodka_quota.get_text()
+            if_beer = eval(self.is_beer_quota.get_text()),
+            if_wine = eval(self.is_wine_quota.get_text()),
+            if_vodka = eval(self.is_vodka_quota.get_text())
         )
         new_record.save()
+
+    def close_app(self, quit_from_app):
+        Gtk.main_quit()
 
 
 if __name__ == "__main__":
